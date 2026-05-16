@@ -1,0 +1,48 @@
+{
+  "flights": [
+    {
+      "id": "OUT-101",
+      "direction": "outbound",
+      "airline": "Acme Air",
+      "flightNumber": "AC101",
+      "departureTime": "08:15",
+      "arrivalTime": "10:25",
+      "duration": "2h 10m",
+      "stops": 0,
+      "price": 149
+    },
+    {
+      "id": "OUT-218",
+      "direction": "outbound",
+      "airline": "Acme Air",
+      "flightNumber": "AC218",
+      "departureTime": "13:40",
+      "arrivalTime": "17:20",
+      "duration": "3h 40m",
+      "stops": 1,
+      "price": 119
+    },
+    {
+      "id": "IN-332",
+      "direction": "inbound",
+      "airline": "Acme Air",
+      "flightNumber": "AC332",
+      "departureTime": "11:35",
+      "arrivalTime": "13:45",
+      "duration": "2h 10m",
+      "stops": 0,
+      "price": 156
+    },
+    {
+      "id": "IN-447",
+      "direction": "inbound",
+      "airline": "Acme Air",
+      "flightNumber": "AC447",
+      "departureTime": "18:10",
+      "arrivalTime": "22:05",
+      "duration": "3h 55m",
+      "stops": 1,
+      "price": 128
+    }
+  ]
+}

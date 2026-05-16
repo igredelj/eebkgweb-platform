@@ -1,0 +1,47 @@
+services:
+  bff:
+    build:
+      context: .
+      dockerfile: apps/bff/Dockerfile
+    working_dir: /var/www/apps/bff
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_KEY: base64:Ue5cj0udKFAgVE8bf1dZJ5d1a30MrLXS3vbFqbiLUWg=
+      APP_URL: http://localhost:8000
+      BOOKING_API_MODE: mock
+      DB_CONNECTION: sqlite
+      SESSION_DRIVER: file
+      CACHE_STORE: file
+      QUEUE_CONNECTION: sync
+    volumes:
+      - .:/var/www
+      - bff-vendor:/var/www/apps/bff/vendor
+    ports:
+      - "8000:8000"
+    command: >
+      sh -lc "composer install &&
+      php artisan config:clear &&
+      php artisan serve --host=0.0.0.0 --port=8000"
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    working_dir: /workspace
+    environment:
+      VITE_BFF_URL: http://bff:8000
+    volumes:
+      - .:/workspace
+      - web-node-modules:/workspace/node_modules
+      - web-app-node-modules:/workspace/apps/web/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - bff
+    command: sh -lc "npm install && npm run dev -w apps/web -- --host 0.0.0.0 --port 5173"
+
+volumes:
+  bff-vendor:
+  web-node-modules:
+  web-app-node-modules:

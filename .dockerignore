@@ -1,0 +1,9 @@
+node_modules
+apps/*/node_modules
+apps/web/dist
+apps/web/tsconfig.tsbuildinfo
+apps/bff/vendor
+apps/bff/storage/logs/*.log
+.git
+.DS_Store
+coverage

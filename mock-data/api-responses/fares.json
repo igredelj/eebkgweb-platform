@@ -1,0 +1,22 @@
+{
+  "fares": [
+    {
+      "id": "light",
+      "name": "Light",
+      "price": 0,
+      "conditions": ["Cabin bag included", "Changes with fee", "No checked baggage"]
+    },
+    {
+      "id": "classic",
+      "name": "Classic",
+      "price": 48,
+      "conditions": ["Checked bag included", "Seat selection included", "Changes with lower fee"]
+    },
+    {
+      "id": "flex",
+      "name": "Flex",
+      "price": 92,
+      "conditions": ["Refundable fare", "Priority boarding", "Free changes"]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "ancillaries": [
+    {
+      "id": "bag-23",
+      "name": "23 kg checked bag",
+      "description": "Add one checked bag for the full itinerary.",
+      "price": 35
+    },
+    {
+      "id": "seat-standard",
+      "name": "Standard seat",
+      "description": "Choose a standard seat before check-in.",
+      "price": 12
+    },
+    {
+      "id": "priority",
+      "name": "Priority boarding",
+      "description": "Board earlier and use the priority lane.",
+      "price": 18
+    }
+  ]
+}

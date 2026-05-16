@@ -1,0 +1,65 @@
+import type { TenantConfig } from '@eebkg/config-schema';
+import { Link, Outlet, useLocation } from 'react-router';
+import { stepLabels, stepRoutes } from '../app/steps';
+import { useAppSelector } from '../app/hooks';
+import { isStepAvailable } from '../features/booking/selectors';
+
+interface AppLayoutProps {
+  config: TenantConfig;
+}
+
+export const AppLayout = ({ config }: AppLayoutProps) => {
+  const location = useLocation();
+  const booking = useAppSelector((state) => state);
+
+  return (
+    <div className="app-shell">
+      <a className="skip-link" href="#main-content">
+        Skip to booking content
+      </a>
+      <header className="site-header">
+        <Link className="brand" to="/search" aria-label={`${config.brand.name} booking home`}>
+          <img src={config.brand.logo} alt="" width="40" height="40" />
+          <span>{config.brand.name}</span>
+        </Link>
+      </header>
+
+      <div className="booking-frame">
+        <aside className="flow-panel" aria-label="Booking progress">
+          <ol className="step-list">
+            {config.bookingFlow.map((step, index) => {
+              const route = stepRoutes[step];
+              const available = isStepAvailable(booking, step);
+              const current = location.pathname === route;
+
+              return (
+                <li key={step}>
+                  <Link
+                    className="step-link"
+                    data-current={current}
+                    data-disabled={!available}
+                    to={available ? route : '#'}
+                    aria-current={current ? 'step' : undefined}
+                    aria-disabled={!available}
+                    onClick={(event) => {
+                      if (!available) {
+                        event.preventDefault();
+                      }
+                    }}
+                  >
+                    <span className="step-index">{index + 1}</span>
+                    <span>{stepLabels[step]}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ol>
+        </aside>
+
+        <main id="main-content" className="page-content" tabIndex={-1}>
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+};
