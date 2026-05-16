@@ -1,5 +1,5 @@
 import type { TenantConfig } from '@eebkg/config-schema';
-import { Search } from 'lucide-react';
+import { ArrowLeftRight, CalendarDays, MapPin, Plane, Search, UsersRound } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { useAppDispatch } from '../app/hooks';
@@ -12,7 +12,7 @@ interface SearchPageProps {
 export const SearchPage = ({ config }: SearchPageProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { register, handleSubmit, formState } = useForm<SearchCriteria>({
+  const { register, handleSubmit, formState, getValues, setValue } = useForm<SearchCriteria>({
     defaultValues: {
       origin: 'ZAG',
       destination: 'AMS',
@@ -31,52 +31,122 @@ export const SearchPage = ({ config }: SearchPageProps) => {
     navigate('/flights');
   };
 
-  return (
-    <section className="flow-page" aria-labelledby="search-title">
-      <div className="page-heading">
-        <h1 id="search-title">Search flights</h1>
-        <p>Choose your route, travel dates, and passengers.</p>
-      </div>
+  const swapRoute = () => {
+    const origin = getValues('origin');
+    const destination = getValues('destination');
+    setValue('origin', destination);
+    setValue('destination', origin);
+  };
 
-      <form className="form-grid" onSubmit={handleSubmit(onSubmit)} noValidate>
-        <label>
-          From
-          <input {...register('origin', { required: 'Origin is required' })} aria-invalid={Boolean(formState.errors.origin)} />
-        </label>
-        <label>
-          To
-          <input
-            {...register('destination', { required: 'Destination is required' })}
-            aria-invalid={Boolean(formState.errors.destination)}
-          />
-        </label>
-        <label>
-          Departure
-          <input type="date" {...register('departureDate', { required: true })} />
-        </label>
-        <label>
-          Return
-          <input type="date" {...register('returnDate', { required: true })} />
-        </label>
-        <label>
-          Adults
-          <input type="number" min="1" {...register('passengers.adult', { valueAsNumber: true, min: 1 })} />
-        </label>
-        <label>
-          Children
-          <input type="number" min="0" {...register('passengers.child', { valueAsNumber: true, min: 0 })} />
-        </label>
-        {config.features.seniorPassenger ? (
-          <label>
-            Seniors
-            <input type="number" min="0" {...register('passengers.senior', { valueAsNumber: true, min: 0 })} />
-          </label>
-        ) : null}
-        <button className="primary-action" type="submit">
-          <Search aria-hidden="true" size={18} />
-          Search flights
-        </button>
-      </form>
+  return (
+    <section className="search-screen" aria-labelledby="search-title">
+      <div className="search-card">
+        <div className="search-card-header">
+          <div className="search-heading">
+            <h1 id="search-title">Build your trip</h1>
+            <p>Find the best fare, choose your bundle, and add only what you need.</p>
+          </div>
+
+          <div className="trip-toggle" role="radiogroup" aria-label="Trip type">
+            <label>
+              <input type="radio" name="tripType" defaultChecked />
+              <span>Round trip</span>
+            </label>
+            <label>
+              <input type="radio" name="tripType" />
+              <span>One way</span>
+            </label>
+          </div>
+        </div>
+
+        <form className="flight-search-form" onSubmit={handleSubmit(onSubmit)} noValidate>
+          <div className="route-grid">
+            <label className="search-field">
+              <span>From</span>
+              <span className="input-shell">
+                <MapPin aria-hidden="true" size={22} />
+                <input
+                  {...register('origin', { required: 'Origin is required' })}
+                  aria-invalid={Boolean(formState.errors.origin)}
+                  placeholder="Departure airport"
+                />
+              </span>
+            </label>
+
+            <button className="swap-button" type="button" aria-label="Swap origin and destination" onClick={swapRoute}>
+              <ArrowLeftRight aria-hidden="true" size={22} />
+            </button>
+
+            <label className="search-field">
+              <span>To</span>
+              <span className="input-shell">
+                <MapPin aria-hidden="true" size={22} />
+                <input
+                  {...register('destination', { required: 'Destination is required' })}
+                  aria-invalid={Boolean(formState.errors.destination)}
+                  placeholder="Arrival airport"
+                />
+              </span>
+            </label>
+          </div>
+
+          <div className="search-grid">
+            <label className="search-field">
+              <span>Departure</span>
+              <span className="input-shell">
+                <CalendarDays aria-hidden="true" size={22} />
+                <input type="date" {...register('departureDate', { required: true })} />
+              </span>
+            </label>
+
+            <label className="search-field">
+              <span>Return</span>
+              <span className="input-shell">
+                <CalendarDays aria-hidden="true" size={22} />
+                <input type="date" {...register('returnDate', { required: true })} />
+              </span>
+            </label>
+
+            <fieldset className="passenger-field">
+              <legend>Passengers</legend>
+              <div className="passenger-panel">
+                <UsersRound aria-hidden="true" size={22} />
+                <label>
+                  Adults
+                  <input type="number" min="1" {...register('passengers.adult', { valueAsNumber: true, min: 1 })} />
+                </label>
+                <label>
+                  Children
+                  <input type="number" min="0" {...register('passengers.child', { valueAsNumber: true, min: 0 })} />
+                </label>
+                {config.features.seniorPassenger ? (
+                  <label>
+                    Seniors
+                    <input type="number" min="0" {...register('passengers.senior', { valueAsNumber: true, min: 0 })} />
+                  </label>
+                ) : null}
+              </div>
+            </fieldset>
+
+            <label className="search-field">
+              <span>Fare type</span>
+              <span className="input-shell">
+                <Plane aria-hidden="true" size={22} />
+                <select defaultValue="economy" aria-label="Fare type">
+                  <option value="economy">Economy</option>
+                  <option value="premium">Premium economy</option>
+                  <option value="business">Business</option>
+                </select>
+              </span>
+            </label>
+          </div>
+
+          <button className="search-submit" type="submit">
+            <Search aria-hidden="true" size={20} />
+            Search flights
+          </button>
+        </form>
+      </div>
     </section>
   );
 };

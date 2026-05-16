@@ -11,6 +11,7 @@ interface AppLayoutProps {
 export const AppLayout = ({ config }: AppLayoutProps) => {
   const location = useLocation();
   const booking = useAppSelector((state) => state);
+  const isSearchPage = location.pathname === '/search';
 
   return (
     <div className="app-shell">
@@ -22,10 +23,22 @@ export const AppLayout = ({ config }: AppLayoutProps) => {
           <img src={config.brand.logo} alt="" width="40" height="40" />
           <span>{config.brand.name}</span>
         </Link>
+        <nav className="site-nav" aria-label="Primary">
+          <Link aria-current={isSearchPage ? 'page' : undefined} to="/search">
+            Book
+          </Link>
+          <a href="#main-content">Manage</a>
+          <a href="#main-content">Check-in</a>
+          <a href="#main-content">Flight status</a>
+          <a href="#main-content">Help</a>
+        </nav>
+        <a className="sign-in-link" href="#main-content">
+          Sign in
+        </a>
       </header>
 
-      <div className="booking-frame">
-        <aside className="flow-panel" aria-label="Booking progress">
+      <div className="booking-frame" data-search-layout={isSearchPage}>
+        <aside className="flow-panel" aria-label="Booking progress" hidden={isSearchPage}>
           <ol className="step-list">
             {config.bookingFlow.map((step, index) => {
               const route = stepRoutes[step];
