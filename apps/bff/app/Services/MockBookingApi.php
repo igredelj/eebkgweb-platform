@@ -13,9 +13,27 @@ class MockBookingApi
         return $this->readJson("tenants/{$tenantId}/config.json");
     }
 
-    public function searchFlights(array $criteria): array
+    public function searchFlights(array $criteria, string $tenantId = 'skywing'): array
     {
-        return $this->readJson('api-responses/search-results.json');
+        $response = $this->readJson('api-responses/search-results.json');
+        $brandName = Arr::get($this->tenantConfig($tenantId), 'brand.name', 'SkyWing');
+        $prefix = match ($tenantId) {
+            'acme-air' => 'AC',
+            'skyline' => 'SL',
+            default => 'SW',
+        };
+
+        $response['flights'] = collect($response['flights'])
+            ->values()
+            ->map(function (array $flight, int $index) use ($brandName, $prefix): array {
+                $flight['airline'] = $brandName;
+                $flight['flightNumber'] = $prefix.($index + 101);
+
+                return $flight;
+            })
+            ->all();
+
+        return $response;
     }
 
     public function fares(array $selection): array

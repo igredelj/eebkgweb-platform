@@ -14,7 +14,7 @@ const tenantFromHost = () => {
     return subdomain;
   }
 
-  return 'acme-air';
+  return 'skywing';
 };
 
 export const loadTenantConfig = async (): Promise<TenantConfig> => {
