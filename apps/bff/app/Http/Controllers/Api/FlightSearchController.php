@@ -21,6 +21,6 @@ class FlightSearchController extends Controller
             'passengers.senior' => ['required', 'integer', 'min:0'],
         ]);
 
-        return response()->json($api->searchFlights($criteria));
+        return response()->json($api->searchFlights($criteria, $request->header('X-Tenant-Id', 'skywing')));
     }
 }

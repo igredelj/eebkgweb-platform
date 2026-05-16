@@ -11,7 +11,7 @@ class TenantConfigController extends Controller
 {
     public function __invoke(Request $request, MockBookingApi $api): JsonResponse
     {
-        $tenantId = $request->query('tenant', 'acme-air');
+        $tenantId = $request->query('tenant', 'skywing');
 
         return response()->json($api->tenantConfig($tenantId));
     }

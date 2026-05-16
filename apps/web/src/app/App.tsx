@@ -12,6 +12,7 @@ import { PassengerDetailsPage } from '../pages/PassengerDetailsPage';
 import { PaymentPage } from '../pages/PaymentPage';
 import { ReviewPage } from '../pages/ReviewPage';
 import { SearchPage } from '../pages/SearchPage';
+import { setApiTenant } from '../services/bookingApi';
 
 export const App = () => {
   const [config, setConfig] = useState<TenantConfig | null>(null);
@@ -20,6 +21,7 @@ export const App = () => {
   useEffect(() => {
     loadTenantConfig()
       .then((tenantConfig) => {
+        setApiTenant(tenantConfig.tenantId);
         applyTenantTheme(tenantConfig);
         setConfig(tenantConfig);
       })

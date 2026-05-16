@@ -37,9 +37,10 @@ Open:
 http://localhost:5173
 ```
 
-Use another tenant locally with:
+The default tenant is `skywing`. Use another tenant locally with:
 
 ```txt
+http://localhost:5173?tenant=acme-air
 http://localhost:5173?tenant=skyline
 ```
 
