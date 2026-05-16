@@ -536,6 +536,359 @@ input[aria-invalid='true'] {
   box-shadow: 0 16px 28px rgb(7 3 22 / 18%);
 }
 
+.availability-screen {
+  display: grid;
+  gap: 0;
+  margin: -32px;
+  color: var(--color-text);
+}
+
+.availability-trip-bar {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-height: 70px;
+  padding: 0 32px;
+  border-bottom: 1px solid #e5e7eb;
+  background: var(--color-surface);
+  box-shadow: 0 8px 16px rgb(15 23 42 / 6%);
+}
+
+.availability-trip-bar div,
+.availability-trip-bar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.availability-trip-bar div:not(:first-child) {
+  color: var(--color-muted-text);
+}
+
+.availability-trip-bar button {
+  min-height: 42px;
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.date-strip {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(104px, 1fr));
+  gap: 10px;
+  overflow-x: auto;
+  padding: 16px 60px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.date-price-card {
+  display: grid;
+  gap: 4px;
+  min-height: 88px;
+  min-width: 104px;
+  place-items: center;
+  border: 1px solid #dedfe3;
+  border-radius: 9px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.date-price-card[data-active='true'] {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+}
+
+.date-price-card span {
+  font-size: 0.86rem;
+}
+
+.availability-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 76px;
+  padding: 0 32px;
+  border-bottom: 1px solid #e5e7eb;
+  background: var(--color-surface);
+}
+
+.availability-toolbar label {
+  display: inline-flex;
+  grid-template-columns: none;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-muted-text);
+  font-weight: 500;
+}
+
+.availability-toolbar select,
+.availability-toolbar button {
+  min-height: 42px;
+  border: 1px solid #d8dbe3;
+  border-radius: 8px;
+  background: #f0f2f6;
+  color: var(--color-text);
+  font-weight: 800;
+}
+
+.availability-toolbar select {
+  width: auto;
+  padding: 0 38px 0 16px;
+}
+
+.availability-toolbar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 18px;
+  cursor: pointer;
+}
+
+.availability-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 32px;
+  padding: 32px;
+  background: #fbfbfc;
+}
+
+.flight-results {
+  display: grid;
+  gap: 32px;
+  min-width: 0;
+}
+
+.availability-heading {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.availability-heading h1,
+.availability-heading h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+
+.availability-heading p {
+  margin: 0;
+  color: var(--color-muted-text);
+}
+
+.availability-list {
+  display: grid;
+  gap: 24px;
+}
+
+.availability-card {
+  display: grid;
+  grid-template-columns: minmax(128px, 0.8fr) minmax(110px, 0.7fr) minmax(150px, 1fr) minmax(110px, 0.7fr) minmax(116px, 0.7fr);
+  align-items: center;
+  gap: 20px;
+  min-height: 134px;
+  padding: 26px 24px;
+  border: 1px solid #dedfe3;
+  border-radius: 8px;
+  background: var(--color-surface);
+  box-shadow: 0 1px 0 rgb(15 23 42 / 2%);
+  cursor: pointer;
+}
+
+.availability-card[data-selected='true'] {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 18%, transparent);
+}
+
+.availability-card input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.flight-airline,
+.flight-time,
+.flight-duration,
+.flight-price {
+  display: grid;
+  gap: 7px;
+}
+
+.flight-airline strong {
+  font-size: 0.98rem;
+}
+
+.flight-airline span,
+.flight-time span,
+.flight-duration span,
+.flight-price span {
+  color: var(--color-muted-text);
+  font-size: 0.9rem;
+}
+
+.flight-details,
+.view-fares {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--color-text) !important;
+  font-weight: 800;
+}
+
+.flight-time strong {
+  font-size: clamp(2rem, 3vw, 2.9rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.flight-duration {
+  justify-items: center;
+  text-align: center;
+}
+
+.duration-line {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-width: 120px;
+  place-items: center;
+}
+
+.duration-line::before {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: #d8dbe3;
+  content: '';
+}
+
+.duration-line svg {
+  position: relative;
+  z-index: 1;
+  background: var(--color-surface);
+  color: var(--color-muted-text);
+}
+
+.flight-price {
+  justify-items: end;
+  text-align: right;
+}
+
+.flight-price strong {
+  font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+  line-height: 1;
+}
+
+.trip-summary-card {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  display: grid;
+  gap: 16px;
+  padding: 28px;
+  border: 1px solid #dedfe3;
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+@media (max-width: 1180px) {
+  .availability-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .availability-card {
+    grid-template-columns: minmax(104px, 0.8fr) minmax(94px, 0.7fr) minmax(118px, 1fr) minmax(94px, 0.7fr) minmax(98px, 0.7fr);
+    gap: 14px;
+    padding: 22px 20px;
+  }
+
+  .duration-line {
+    min-width: 86px;
+  }
+
+  .trip-summary-card {
+    position: static;
+    order: -1;
+  }
+}
+
+.trip-summary-card h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.summary-route {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--color-muted-text);
+}
+
+.summary-flight-slot {
+  display: grid;
+  gap: 9px;
+  min-height: 84px;
+  padding: 18px;
+  border: 1px dashed #cfd2dc;
+  border-radius: 8px;
+}
+
+.summary-flight-slot[data-complete='true'] {
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--color-primary) 38%, #cfd2dc);
+  background: color-mix(in srgb, var(--color-primary) 5%, #ffffff);
+}
+
+.summary-flight-slot span {
+  color: var(--color-muted-text);
+}
+
+.summary-total {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  padding-top: 8px;
+}
+
+.summary-total span {
+  color: var(--color-muted-text);
+}
+
+.summary-total strong {
+  font-size: 1.75rem;
+}
+
+.summary-continue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.summary-continue:disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
 @media (max-width: 820px) {
   .booking-frame,
   .two-column,
@@ -611,6 +964,52 @@ input[aria-invalid='true'] {
   .search-submit {
     width: 100%;
     justify-self: stretch;
+  }
+
+  .availability-screen {
+    margin: -20px;
+  }
+
+  .availability-trip-bar,
+  .availability-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 18px 20px;
+  }
+
+  .availability-trip-bar button {
+    margin-left: 0;
+  }
+
+  .date-strip {
+    grid-template-columns: repeat(7, minmax(118px, 1fr));
+    padding: 14px 20px;
+  }
+
+  .availability-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 20px;
+  }
+
+  .availability-card {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .flight-duration,
+  .flight-price {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .duration-line {
+    max-width: 220px;
+  }
+
+  .trip-summary-card {
+    position: static;
+    order: -1;
   }
 }
 

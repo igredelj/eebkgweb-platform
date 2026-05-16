@@ -12,6 +12,7 @@ export const AppLayout = ({ config }: AppLayoutProps) => {
   const location = useLocation();
   const booking = useAppSelector((state) => state);
   const isSearchPage = location.pathname === '/search';
+  const isFullBleedFlowPage = isSearchPage || location.pathname === '/flights';
 
   return (
     <div className="app-shell">
@@ -37,8 +38,8 @@ export const AppLayout = ({ config }: AppLayoutProps) => {
         </a>
       </header>
 
-      <div className="booking-frame" data-search-layout={isSearchPage}>
-        <aside className="flow-panel" aria-label="Booking progress" hidden={isSearchPage}>
+      <div className="booking-frame" data-search-layout={isFullBleedFlowPage}>
+        <aside className="flow-panel" aria-label="Booking progress" hidden={isFullBleedFlowPage}>
           <ol className="step-list">
             {config.bookingFlow.map((step, index) => {
               const route = stepRoutes[step];
