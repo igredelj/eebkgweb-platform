@@ -77,3 +77,20 @@ npm run test
 npm run build
 cd apps/bff && php artisan test
 ```
+
+## ArchitectAI
+
+ArchitectAI is a read-only project analysis assistant for repository questions.
+
+Start it from the Laravel app:
+
+```sh
+cd apps/bff
+php artisan architect
+```
+
+Project context and safety rules live in:
+
+- `docs/ai-context.md`
+- `docs/architect-ai.md`
+- `.aiignore`
