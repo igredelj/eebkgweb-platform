@@ -1,4 +1,4 @@
-# EEBKG Web Platform
+# Booking Platform
 
 Monorepo scaffold for a multi-tenant flight booking app.
 
